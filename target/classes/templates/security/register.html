@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layouts :: headContent">
+    <title id="pageTitle">Register</title>
+</head>
+<body style="background-color: #ededed;">
+    <nav th:replace="layouts :: navbarContent"></nav>
+    <div style="background-color: #337ab7; height: 50px;"></div>
+    <div class="container-fluid" style="margin-top: 30px;">
+
+        <div class="row col-lg-4 col-lg-offset-4" style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
+            <form autocomplete="off" th:action="@{/register/save}" th:object="${userAccount}" method="post" class="form-signin" role="form">
+                <h3 class="form-signin-heading">Registration Form</h3>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:field="*{userName}" placeholder="User Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <button type="submit" class="btn btn-primary btn-block">Register User</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="layouts :: footerContent"></footer>
+    <script th:replace="layouts :: bootstrapJS"></script>
+</body>
+
+</html>

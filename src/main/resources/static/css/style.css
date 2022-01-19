@@ -1,0 +1,14 @@
+body {
+    min-height: 100%;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+}
+
+.text-red {
+    color: red;
+}

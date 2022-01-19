@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layouts :: headContent">
+    <title id="pageTitle">Update Project</title>
+</head>
+<body>
+    <nav th:replace="layouts :: navbarContent"></nav>
+    <div class="container mt-3">
+        <form th:action="@{/projects/save}" method="POST" th:object="${project}">
+            <input type="hidden" th:field="${project.projectId}">
+            <div class="input-group row mb-2 g-0">
+                <label  class="form-label" for="pname">Project Name:</label>
+                <input  class="form-control" id="pname" type="text" placeholder="Project Name" th:field="${project.name}" required />
+            </div>
+            <div class="input-group row mb-2 g-0">
+                <label class="form-label" for="pstage">Project Stage:</label>
+                <select  class="form-select" id="pstage" th:field="${project.stage}" required >
+                    <option th:value="NOTSTARTED">Not Started</option>
+                    <option th:value="INPROGRESS">In Progress</option>
+                    <option th:value="COMPLETED">Completed</option>
+                </select>
+            </div>
+            <div class="input-group row mb-2 g-0">
+                <label class="form-label" for="pdescription">Project Description:</label>
+                <textarea id="pdescription" type="text" placeholder="Enter Project Description" th:field="${project.description}" required></textarea>
+            </div>
+            <div class="input-group row mb-2 g-0">
+                <label class="form-label" for="employees">Employees</label>
+                <select class="form-select" id="employees" th:field="${project.employees}" required multiple>
+                    <option th:each="employee : ${employeesList}"
+                            th:value="${employee.employeeId}"
+                            th:text="${employee.firstName}">
+                    </option>
+                </select>
+            </div>
+            <div class="input-group row mb-2 g-0">
+                <label for="dp3">Project Start Date:</label>
+                <input id="dp3" type="text" class="mb-4 col-2 col-xs-4" value="Start Date" th:field="${project.startDate}" required>
+            </div>
+            <div class="input-group row mb-2 g-0">
+                <label for="dp4">Project End Date:</label>
+                <input id="dp4" type="text" class="mb-4 col-2 col-xs-4" value="End Date" th:field="${project.endDate}" required>
+            </div>
+            <input class="btn btn-info btn-small" type="Submit" value="Update Project" />
+        </form>
+    </div>
+    <footer th:replace="layouts :: footerContent"></footer>
+    <script th:replace="layouts :: bootstrapJS"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $('#dp3').datepicker();
+        $('#dp4').datepicker();
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layouts :: headContent">
+    <title id="pageTitle">Projects Timelines</title>
+</head>
+    <body>
+        <nav th:replace="layouts :: navbarContent"></nav>
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center">
+                        <h4>Projects Timelines</h4>
+                    </div>
+                    <hr>
+                    <div class="mt-2" id="timeline" style="height: 180px;"></div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="layouts :: footerContent"></footer>
+        <script th:replace="layouts :: bootstrapJS"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" th:src="@{/js/timelineChart.js}"></script>
+    </body>
+
+</html>
