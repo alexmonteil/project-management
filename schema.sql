@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS project (
     name VARCHAR(100) NOT NULL,
     stage VARCHAR(100) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    start_date
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL
 
 );
 
