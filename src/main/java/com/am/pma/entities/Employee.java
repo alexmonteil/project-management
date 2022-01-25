@@ -1,6 +1,7 @@
 package com.am.pma.entities;
 
 
+import com.am.pma.validators.OnUpdate;
 import com.am.pma.validators.UniqueValue;
 
 import javax.persistence.*;
@@ -17,22 +18,21 @@ public class Employee {
     @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1, initialValue = 1)
     private long employeeId;
 
-    @NotBlank(message = "* Must provide a first name")
-    @Size(min = 2, max = 50)
+    @NotBlank(message = "* Must provide a first name", groups = OnUpdate.class)
+    @Size(min = 2, max = 50, groups = OnUpdate.class)
     private String firstName;
 
-    @NotBlank(message = "* Must provide a last name")
-    @Size(min = 2, max = 50)
+    @NotBlank(message = "* Must provide a last name", groups = OnUpdate.class)
+    @Size(min = 2, max = 50, groups = OnUpdate.class)
     private String lastName;
 
-    @NotBlank(message = "* Must provide an email address")
-    @Email(message = "* Must be a valid email address")
+    @NotBlank(message = "* Must provide an email address", groups = OnUpdate.class)
+    @Email(message = "* Must be a valid email address", groups = OnUpdate.class)
     @UniqueValue(message = "* Email is already in use")
     private String email;
 
-    @NotBlank(message = "* Must provide a phone number")
-    @Size(min = 10, max = 13)
-
+    @NotBlank(message = "* Must provide a phone number", groups = OnUpdate.class)
+    @Size(min = 10, max = 13, groups = OnUpdate.class)
     private String phoneNumber;
 
     private byte[] imageData;

@@ -12,7 +12,7 @@ public class ImageService {
         }
 
         String imageBase64Data = Base64.getEncoder().encodeToString(fileData);
-        return "data:"+ extension + ";base64,"+ imageBase64Data;
+        return "data:" + extension + ";base64," + imageBase64Data;
     }
 
     public String extractImageType(String fileName) {

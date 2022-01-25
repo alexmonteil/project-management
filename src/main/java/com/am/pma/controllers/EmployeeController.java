@@ -5,19 +5,21 @@ import java.util.List;
 
 import com.am.pma.services.EmployeeService;
 import com.am.pma.services.ImageService;
-import com.am.pma.services.UserAccountService;
+import com.am.pma.validators.OnUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import com.am.pma.entities.Employee;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
 @Controller
+@Validated
 @RequestMapping("/employees")
 public class EmployeeController {
 
@@ -25,8 +27,6 @@ public class EmployeeController {
     EmployeeService employeeService;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    UserAccountService userAccountService;
     @Autowired
     ImageService imageService;
 
@@ -70,18 +70,18 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public String updateEmployee(Model model, @Valid Employee employee, BindingResult bindingResult) {
+    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "employees/update-employee";
         }
 
         Employee beforeUpdateEmployee = employeeService.findByEmployeeId(employee.getEmployeeId());
-        employee.setImageData(beforeUpdateEmployee.getImageData());
-        employee.setImageType(beforeUpdateEmployee.getImageType());
-        employee.setUserAccount(beforeUpdateEmployee.getUserAccount());
-        employee.setProjects(beforeUpdateEmployee.getProjects());
-        employeeService.save(employee);
+        beforeUpdateEmployee.setFirstName(employee.getFirstName());
+        beforeUpdateEmployee.setLastName(employee.getLastName());
+        beforeUpdateEmployee.setEmail(employee.getEmail());
+        beforeUpdateEmployee.setPhoneNumber(employee.getPhoneNumber());
+        employeeService.save(beforeUpdateEmployee);
         return "redirect:/employees";
     }
 
@@ -90,5 +90,13 @@ public class EmployeeController {
         Employee targetEmployee = employeeService.findByEmployeeId(employeeId);
         employeeService.deleteEmployee(targetEmployee);
         return "redirect:/employees";
+    }
+
+    @GetMapping("/profile")
+    public String displayEmployeeProfile(Model model, @RequestParam("id") long employeeId) {
+        Employee targetEmployee = employeeService.findByEmployeeId(employeeId);
+        model.addAttribute("employee", targetEmployee);
+        model.addAttribute("imageService", imageService);
+        return "employees/employee-profile";
     }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layouts :: headContent">
+    <title id="pageTitle">Employee Profile</title>
+</head>
+<body>
+
+<nav th:replace="layouts :: navbarContent"></nav>
+<div class="container mt-3">
+    <div class="text-center">
+        <img src="${imageService.convertByteArrayToFile(employee.imageData, employee.imageType)}" class="img-fluid" alt="employee photo">
+    </div>
+    <div class="text-center">
+        
+    </div>
+</div>
+
+<footer th:replace="layouts :: footerContent"></footer>
+<script th:replace="layouts :: bootstrapJS"></script>
+</body>
+
+</html>
