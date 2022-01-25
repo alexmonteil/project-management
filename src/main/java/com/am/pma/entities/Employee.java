@@ -35,6 +35,10 @@ public class Employee {
     @Size(min = 10, max = 13, groups = OnUpdate.class)
     private String phoneNumber;
 
+    @NotBlank(message = "* Must provide a career description", groups = OnUpdate.class)
+    @Size(min = 20, max = 255, groups = OnUpdate.class)
+    private String careerDescription;
+
     private byte[] imageData;
     private String imageType;
 
@@ -51,11 +55,12 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(String firstName, String lastName, String email, String phoneNumber, byte[] imageData, String imageType) {
+    public Employee(String firstName, String lastName, String email, String phoneNumber, String careerDescription, byte[] imageData, String imageType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.careerDescription = careerDescription;
         this.imageData = imageData;
         this.imageType = imageType;
     }
@@ -82,6 +87,10 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public String getEmail() {
@@ -130,5 +139,13 @@ public class Employee {
 
     public void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
+    }
+
+    public String getCareerDescription() {
+        return careerDescription;
+    }
+
+    public void setCareerDescription(String careerDescription) {
+        this.careerDescription = careerDescription;
     }
 }

@@ -29,6 +29,11 @@
             <input class="form-control" id="phone" type="tel" placeholder="Phone" th:field="${employee.phoneNumber}" required  minlength="10" maxlength="13"/>
             <span class="text-red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="${employee.phoneNumber}"></span>
         </div>
+        <div class="input-group row mb-2 g-0">
+            <label class="form-label" for="cdescription">Career Description:</label>
+            <textarea class="form-control" id="cdescription" placeholder="Career Description" th:field="${employee.careerDescription}" required minlength="20" maxlength="255"></textarea>
+            <span class="text-red" th:if="${#fields.hasErrors('careerDescription')}" th:errors="${employee.careerDescription}"></span>
+        </div>
         <input class="btn btn-info btn-small" type="submit" value="Update Employee" />
     </form>
 </div>

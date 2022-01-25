@@ -1,6 +1,10 @@
 package com.am.pma.services;
 
+import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.Base64;
 
 @Service
@@ -15,7 +19,8 @@ public class ImageService {
         return "data:" + extension + ";base64," + imageBase64Data;
     }
 
-    public String extractImageType(String fileName) {
-        return fileName.substring(fileName.lastIndexOf(".") + 1);
+    public String extractImageType(MultipartFile file) throws IOException {
+        Tika tika = new Tika();
+        return tika.detect(file.getBytes());
     }
 }

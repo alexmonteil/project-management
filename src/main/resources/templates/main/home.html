@@ -48,7 +48,7 @@
                         <tr th:each="employeeProjectCount : ${employeesListProjectCount}">
                             <td th:text="${employeeProjectCount.firstName}"></td>
                             <td th:text="${employeeProjectCount.lastName}"></td>
-                            <td th:text="${employeeProjectCount.email}"></td>
+                            <td><a th:href="@{${'mailto:' + employeeProjectCount.email}}" th:text="${employeeProjectCount.email}"></a></td>
                             <td th:text="${employeeProjectCount.projectCount}"></td>
                         </tr>
                         </tbody>

@@ -59,7 +59,7 @@ public class EmployeeController {
 
         if (!multipartFile.isEmpty() && multipartFile.getOriginalFilename() != null) {
             employee.setImageData(multipartFile.getBytes());
-            employee.setImageType(imageService.extractImageType(multipartFile.getOriginalFilename()));
+            employee.setImageType(imageService.extractImageType(multipartFile));
         }
 
         employee.getUserAccount().setPassword(bCryptPasswordEncoder.encode(employee.getUserAccount().getPassword()));
@@ -81,6 +81,7 @@ public class EmployeeController {
         beforeUpdateEmployee.setLastName(employee.getLastName());
         beforeUpdateEmployee.setEmail(employee.getEmail());
         beforeUpdateEmployee.setPhoneNumber(employee.getPhoneNumber());
+        beforeUpdateEmployee.setCareerDescription(employee.getCareerDescription());
         employeeService.save(beforeUpdateEmployee);
         return "redirect:/employees";
     }
@@ -95,8 +96,9 @@ public class EmployeeController {
     @GetMapping("/profile")
     public String displayEmployeeProfile(Model model, @RequestParam("id") long employeeId) {
         Employee targetEmployee = employeeService.findByEmployeeId(employeeId);
+        String imgUrl = imageService.convertByteArrayToFile(targetEmployee.getImageData(), targetEmployee.getImageType());
+        model.addAttribute("imgUrl", imgUrl);
         model.addAttribute("employee", targetEmployee);
-        model.addAttribute("imageService", imageService);
         return "employees/employee-profile";
     }
 }

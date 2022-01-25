@@ -7,7 +7,7 @@
   <nav th:replace="layouts :: navbarContent"></nav>
   <div class="container mt-3">
     <div class="row">
-      <div class="col-10">
+      <div class="col-12">
         <h4>Employees Directory</h4>
         <hr>
         <a th:href="@{/employees/new}" class="btn btn-primary btn-sm mb-3">New Employee</a>
@@ -26,7 +26,7 @@
           <tr th:each="employee : ${employeesList}">
             <td th:text="${employee.firstName}"></td>
             <td th:text="${employee.lastName}"></td>
-            <td th:text="${employee.email}"></td>
+            <td><a th:href="@{${'mailto:' + employee.email}}" th:text="${employee.email}"></a></td>
             <td th:text="${employee.phoneNumber}"></td>
             <td>
               <a th:href="@{/employees/profile(id=${employee.employeeId})}">See Profile</a>

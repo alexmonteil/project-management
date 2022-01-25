@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS employee (
     phone_number VARCHAR(12) UNIQUE NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
+    career_description VARCHAR(255) NOT NULL,
     image_data bytea,
     image_type VARCHAR(10),
     user_id BIGINT UNIQUE DEFAULT NULL
