@@ -1,6 +1,5 @@
 package com.am.pma.entities;
 
-import com.am.pma.validators.UniqueValue;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,7 +32,7 @@ public class UserAccount {
     private Employee employee;
 
 
-    public UserAccount() { }
+    public UserAccount() {}
 
     public UserAccount(String userName, String password, String role, boolean enabled) {
         this.userName = userName;

@@ -14,4 +14,6 @@ public class UserAccountService {
     public UserAccount save(UserAccount userAccount) {
         return userAccountRepository.save(userAccount);
     }
+    public UserAccount findByUserName(String username) { return userAccountRepository.findByUserName(username); }
+    public UserAccount findByUserId(long userId) { return userAccountRepository.findByUserId(userId); }
 }

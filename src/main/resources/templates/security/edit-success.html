@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layouts :: headContent">
+    <title id="pageTitle">Update Successful</title>
+</head>
+<body>
+
+<nav th:replace="layouts :: navbarContent"></nav>
+<div class="container mt-3">
+    <h1>Password was successfully changed !</h1>
+    <hr/>
+    <a class="btn btn-primary btn-small" th:href="@{/}">Back to Home</a>
+</div>
+
+<footer th:replace="layouts :: footerContent"></footer>
+<script th:replace="layouts :: bootstrapJS"></script>
+</body>
+
+</html>

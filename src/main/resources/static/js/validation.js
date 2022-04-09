@@ -1,5 +1,5 @@
-const onClickConfirmDeletion = resource => {
-    if (!confirm("Are you sure you want to delete this " + resource + " ?")) {
+const onClickConfirm = (message) => {
+    if (!confirm(message)) {
         return false;
     }
 }

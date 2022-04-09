@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
     <head th:fragment = "headContent">
         <!-- Required meta tags -->
@@ -26,6 +26,8 @@
                     <a class="nav-link" th:href="@{/employees}">Employees</a>
                     <a class="nav-link" th:href="@{/projects}">Projects</a>
                     <a class="nav-link" th:href="@{/projects/timelines}">Projects Timelines</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/employees/edit-my-profile}">Edit My Profile</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/security/edit-security}">Account Security</a>
                 </div>
             </div>
         </div>

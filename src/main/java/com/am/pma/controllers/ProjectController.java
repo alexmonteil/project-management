@@ -1,6 +1,5 @@
 package com.am.pma.controllers;
 
-import java.security.Principal;
 import java.util.List;
 
 import com.am.pma.entities.Project;
@@ -80,7 +79,7 @@ public class ProjectController {
     }
 
     @GetMapping("/my-projects")
-    public String displayMyProjects(Principal principal, Model model) {
+    public String displayMyProjects() {
         return "projects/my-projects";
     }
 

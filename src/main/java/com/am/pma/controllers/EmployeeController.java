@@ -1,6 +1,7 @@
 package com.am.pma.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 import com.am.pma.services.EmployeeService;
@@ -46,7 +47,9 @@ public class EmployeeController {
     @GetMapping("/update")
     public String displayUpdateEmployeeForm(Model model, @RequestParam("id") long employeeId) {
         Employee targetEmployee = employeeService.findByEmployeeId(employeeId);
+        String imgUrl = imageService.convertByteArrayToFile(targetEmployee.getImageData(), targetEmployee.getImageType());
         model.addAttribute("employee", targetEmployee);
+        model.addAttribute("imgUrl", imgUrl);
         return "employees/update-employee";
     }
 
@@ -70,7 +73,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult) {
+    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile multipartFile) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "employees/update-employee";
@@ -82,6 +85,10 @@ public class EmployeeController {
         beforeUpdateEmployee.setEmail(employee.getEmail());
         beforeUpdateEmployee.setPhoneNumber(employee.getPhoneNumber());
         beforeUpdateEmployee.setCareerDescription(employee.getCareerDescription());
+        if (!multipartFile.isEmpty() && multipartFile.getOriginalFilename() != null) {
+            beforeUpdateEmployee.setImageData(multipartFile.getBytes());
+            beforeUpdateEmployee.setImageType(imageService.extractImageType(multipartFile));
+        }
         employeeService.save(beforeUpdateEmployee);
         return "redirect:/employees";
     }
@@ -100,5 +107,14 @@ public class EmployeeController {
         model.addAttribute("imgUrl", imgUrl);
         model.addAttribute("employee", targetEmployee);
         return "employees/employee-profile";
+    }
+
+    @GetMapping("/edit-my-profile")
+    public String displayEditMyProfileForm(Model model, Principal principal) {
+        Employee targetEmployee = employeeService.findByEmployeeUserName(principal.getName());
+        String imgUrl = imageService.convertByteArrayToFile(targetEmployee.getImageData(), targetEmployee.getImageType());
+        model.addAttribute("employee", targetEmployee);
+        model.addAttribute("imgUrl", imgUrl);
+        return "employees/update-employee";
     }
 }

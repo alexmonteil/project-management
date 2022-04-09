@@ -1,6 +1,7 @@
 package com.am.pma.services;
 
 import com.am.pma.dao.IEmployeeRepository;
+import com.am.pma.dao.IUserAccountRepository;
 import com.am.pma.dto.IEmployeeProject;
 import com.am.pma.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,6 @@ public class EmployeeService {
     public Employee findByEmail(String email) {
         return employeeRepository.findByEmail(email);
     }
+
+    public Employee findByEmployeeUserName(String userName) { return employeeRepository.findByEmployeeUserName(userName); }
 }

@@ -7,7 +7,7 @@
 
 <nav th:replace="layouts :: navbarContent"></nav>
 <div class="container mt-3">
-    <form th:action="@{/employees/save}" method="POST" th:object="${employee}">
+    <form th:action="@{/employees/save}" method="POST" th:object="${employee}" enctype="multipart/form-data">
         <input type="hidden" th:field="${employee.employeeId}" />
         <div class="input-group row mb-2 g-0">
             <label class="form-label" for="fname">First Name:</label>
@@ -33,6 +33,10 @@
             <label class="form-label" for="cdescription">Career Description:</label>
             <textarea class="form-control" id="cdescription" placeholder="Career Description" th:field="${employee.careerDescription}" required minlength="20" maxlength="255"></textarea>
             <span class="text-red" th:if="${#fields.hasErrors('careerDescription')}" th:errors="${employee.careerDescription}"></span>
+        </div>
+        <div class="input-group row mb-2 g-0">
+            <label class="form-label" for="imageFile">Picture:</label>
+            <input class="form-control" id="imageFile" name="imageFile" type="file" placeholder="Picture" accept="image/png, image/jpeg" />
         </div>
         <input class="btn btn-info btn-small" type="submit" value="Update Employee" />
     </form>
