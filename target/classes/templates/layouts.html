@@ -26,6 +26,7 @@
                     <a class="nav-link" th:href="@{/employees}">Employees</a>
                     <a class="nav-link" th:href="@{/projects}">Projects</a>
                     <a class="nav-link" th:href="@{/projects/timelines}">Projects Timelines</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/projects/my-projects}">My Projects</a>
                     <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/employees/edit-my-profile}">Edit My Profile</a>
                     <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/security/edit-security}">Account Security</a>
                 </div>

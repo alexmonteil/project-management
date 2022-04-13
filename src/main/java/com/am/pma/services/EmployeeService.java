@@ -39,5 +39,5 @@ public class EmployeeService {
         return employeeRepository.findByEmail(email);
     }
 
-    public Employee findByEmployeeUserName(String userName) { return employeeRepository.findByEmployeeUserName(userName); }
+    public Employee findByEmployeeUserName(String username) { return employeeRepository.findByEmployeeUserName(username); }
 }

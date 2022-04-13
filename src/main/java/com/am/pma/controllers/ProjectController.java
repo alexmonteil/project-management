@@ -1,5 +1,6 @@
 package com.am.pma.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import com.am.pma.entities.Project;
@@ -79,7 +80,11 @@ public class ProjectController {
     }
 
     @GetMapping("/my-projects")
-    public String displayMyProjects() {
+    public String displayMyProjects(Principal principal, Model model) {
+
+        Employee targetEmployee = employeeService.findByEmployeeUserName(principal.getName());
+        List<Project> projectsList = projectService.getProjectsByEmployeeId(targetEmployee.getEmployeeId());
+        model.addAttribute("projectsList", projectsList);
         return "projects/my-projects";
     }
 

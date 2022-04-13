@@ -35,4 +35,6 @@ public class ProjectService {
     public List<IChartData> getProjectsStatusCounts() { return projectRepository.getProjectsStatusCounts(); }
 
     public List<IProjectTimelineData> getProjectsTimelinesData() { return projectRepository.getProjectsTimelinesData(); }
+
+    public List<Project> getProjectsByEmployeeId(long employeeId) { return projectRepository.getProjectsByEmployeeId(employeeId); }
 }
