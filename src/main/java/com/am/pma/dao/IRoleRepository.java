@@ -5,11 +5,11 @@ import com.am.pma.entities.Role;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.NonNull;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IRoleRepository extends CrudRepository<Role, Long> {
 
     @Override
     @NonNull
-    public List<Role> findAll();
+    public Set<Role> findAll();
 }

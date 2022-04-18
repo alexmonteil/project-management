@@ -5,7 +5,7 @@ import com.am.pma.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class RoleService {
@@ -13,5 +13,5 @@ public class RoleService {
     @Autowired
     IRoleRepository roleRepository;
 
-    public List<Role> findAll() { return roleRepository.findAll(); }
+    public Set<Role> findAll() { return roleRepository.findAll(); }
 }

@@ -3,9 +3,12 @@ package com.am.pma.controllers;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
+import com.am.pma.entities.Role;
 import com.am.pma.services.EmployeeService;
 import com.am.pma.services.ImageService;
+import com.am.pma.services.RoleService;
 import com.am.pma.validators.OnUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +33,8 @@ public class EmployeeController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     ImageService imageService;
+    @Autowired
+    RoleService roleService;
 
     @GetMapping
     public String displayEmployees(Model model) {
@@ -40,7 +45,9 @@ public class EmployeeController {
 
     @GetMapping("/new")
     public String displayCreateEmployeeForm(Model model) {
+        Set<Role> roles = roleService.findAll();
         model.addAttribute("employee", new Employee());
+        model.addAttribute("rolesList", roles);
         return "employees/new-employee";
     }
 

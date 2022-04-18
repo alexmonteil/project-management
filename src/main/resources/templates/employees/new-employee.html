@@ -33,6 +33,10 @@
                     <input class="form-control" id="email" type="email" placeholder="Email" th:field="${employee.email}" required minlength="10" maxlength="50" />
                     <span class="text-red" th:if="${#fields.hasErrors('email')}" th:errors="${employee.email}"></span>
                 </div>
+                <label for="role">Choose a Role:</label>
+                <select id="role">
+                    <option th:each="role : ${rolesList}" th:value="${role.name}" th:text="${role.name}"></option>
+                </select>
                 <div class="input-group row mb-2 g-0">
                     <label class="form-label" for="phone">Phone number:</label>
                     <input class="form-control" id="phone" type="tel" placeholder="Phone" th:field="${employee.phoneNumber}" required  minlength="10" maxlength="13"/>
