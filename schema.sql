@@ -19,10 +19,23 @@ CREATE TABLE IF NOT EXISTS user_account (
 	user_id BIGINT NOT NULL DEFAULT nextval('user_account_seq') PRIMARY KEY,
 	username varchar(255) UNIQUE NOT NULL,
 	password varchar(255) NOT NULL,
-	role varchar(255) NOT NULL DEFAULT 'ROLE_EMPLOYEE',
 	enabled boolean NOT NULL DEFAULT TRUE,
     employee_id BIGINT UNIQUE DEFAULT NULL
 );
+
+CREATE SEQUENCE IF NOT EXISTS role_seq;
+
+CREATE TABLE IF NOT EXISTS role (
+	role_id BIGINT NOT NULL DEFAULT nextval('role_seq') PRIMARY KEY,
+	name VARCHAR(50) UNIQUE NOT NULL DEFAULT "ROLE_EMPLOYEE"
+);
+
+
+CREATE TABLE IF NOT EXISTS user_role (
+    user_id BIGINT NOT NULL REFERENCES user_account (user_id),
+    role_id BIGINT NOT NULL REFERENCES role (role_id)
+);
+
 
 CREATE SEQUENCE IF NOT EXISTS project_seq;
 
@@ -40,8 +53,8 @@ CREATE TABLE IF NOT EXISTS project (
 
 CREATE TABLE IF NOT EXISTS project_employee (
 
-    project_id BIGINT REFERENCES project, 
-    employee_id BIGINT REFERENCES employee
+    project_id BIGINT NOT NULL REFERENCES project (project_id), 
+    employee_id BIGINT NOT NULL REFERENCES employee (employee_id)
 
 );
 
