@@ -34,8 +34,8 @@
                     <span class="text-red" th:if="${#fields.hasErrors('email')}" th:errors="${employee.email}"></span>
                 </div>
                 <div th:if="${!rolesList.isEmpty()}" class="input-group row mb-2 g-0">
-                    <label for="role">Choose a Role:</label>
-                    <select id="role">
+                    <label class="form-label" for="role">Choose a Role:</label>
+                    <select class="form-select" id="role">
                         <option th:each="role : ${rolesList}" th:value="${role.name}" th:text="${role.name}"></option>
                     </select>
                 </div>
