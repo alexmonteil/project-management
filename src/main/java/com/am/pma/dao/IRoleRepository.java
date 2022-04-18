@@ -12,4 +12,6 @@ public interface IRoleRepository extends CrudRepository<Role, Long> {
     @Override
     @NonNull
     public Set<Role> findAll();
+
+    public Role findByName(String name);
 }

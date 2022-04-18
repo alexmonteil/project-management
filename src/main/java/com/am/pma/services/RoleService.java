@@ -14,4 +14,5 @@ public class RoleService {
     IRoleRepository roleRepository;
 
     public Set<Role> findAll() { return roleRepository.findAll(); }
+    public Role findByName(String name) { return roleRepository.findByName(name); }
 }

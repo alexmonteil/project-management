@@ -61,7 +61,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public String createEmployee(Model model, @Valid Employee employee, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile multipartFile) throws IOException {
+    public String createEmployee(Model model, @Valid Employee employee, BindingResult bindingResult, @RequestParam("role") String roleName, @RequestParam("imageFile") MultipartFile multipartFile) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "employees/new-employee";
@@ -72,8 +72,10 @@ public class EmployeeController {
             employee.setImageType(imageService.extractImageType(multipartFile));
         }
 
+        Role selectedRole = roleService.findByName(roleName);
         employee.getUserAccount().setPassword(bCryptPasswordEncoder.encode(employee.getUserAccount().getPassword()));
         employee.getUserAccount().setEmployee(employee);
+        employee.getUserAccount().addRole(selectedRole);
         employeeService.save(employee);
         // redirect after saving to DB to avoid duplicate submissions
         return "redirect:/employees";
