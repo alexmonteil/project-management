@@ -88,4 +88,11 @@ public class ProjectController {
         return "projects/my-projects";
     }
 
+    @GetMapping("/details")
+    public String displayProjectDetails(Model model, @RequestParam("id") long projectId) {
+        Project targetProject = projectService.findByProjectId(projectId);
+        model.addAttribute("project", targetProject);
+        return "project-details";
+    }
+
 }

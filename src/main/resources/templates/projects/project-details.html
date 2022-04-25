@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layouts :: headContent">
+  <title id="pageTitle">Project Details</title>
+</head>
+<body>
+<nav th:replace="layouts :: navbarContent"></nav>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center mx-auto">
+        <div class="card mx-auto" style="width: 18rem;">
+          <img th:src="@{/img/project.jpg}" class="card-img-top" alt="employee photo">
+          <div class="card-body">
+            <h3 th:text="${project.name}" class="mt-2"></h3>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Description:</h5>
+            <p th:text="${project.description}" class="card-text"></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li th:text="${'Start Date: ' + project.startDate}" class="list-group-item"></li>
+            <li th:text="${'End Date: ' + project.endDate}" class="list-group-item"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h4>Assigned Employees</h4>
+      <table class="table table-border table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${project.getEmployees()}">
+          <td th:text="${employee.firstName}"></td>
+          <td th:text="${employee.lastName}"></td>
+          <td><a th:href="@{${'mailto:' + employee.email}}" th:text="${employee.email}"></a></td>
+          <td th:text="${employee.phoneNumber}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer th:replace="layouts :: footerContent"></footer>
+<script th:replace="layouts :: bootstrapJS"></script>
+</body>
+</html>
