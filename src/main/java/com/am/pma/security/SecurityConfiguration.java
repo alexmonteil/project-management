@@ -2,6 +2,7 @@ package com.am.pma.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,18 +19,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
     @Autowired
+    ProjectIOUserDetailsService projectIOUserDetailsService;
+
+    @Autowired
+    DaoAuthenticationProvider daoAuthenticationProvider;
+
+
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, enabled " +
-                        "from user_account where username = ?")
-                .authoritiesByUsernameQuery("select username, role " +
-                        "from user_account" +
-                        " where username = ?")
-                .dataSource(dataSource)
-                .passwordEncoder(bCryptPasswordEncoder);
+       daoAuthenticationProvider.setUserDetailsService(projectIOUserDetailsService);
+       daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
+       auth.authenticationProvider(daoAuthenticationProvider);
     }
 
     @Override
