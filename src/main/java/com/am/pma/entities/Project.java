@@ -1,6 +1,7 @@
 package com.am.pma.entities;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -45,6 +46,9 @@ public class Project {
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     private List<Employee> employees;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Message> messageList = new ArrayList<Message>();
 
     public Project() {}
 
