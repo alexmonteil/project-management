@@ -24,6 +24,7 @@ public class Message {
     @Size(min = 5, max = 255, groups = OnUpdate.class)
     private String content;
 
+    @Transient
     private Timestamp createdAt;
 
     @ManyToOne

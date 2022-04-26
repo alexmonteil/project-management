@@ -51,7 +51,7 @@ public class MessageController {
         message.setProject(targetProject);
         message.setUserAccount(targetUserAccount);
         messageService.save(message);
-        return "redirect:/projects/project-details?id=" + projectId;
+        return "redirect:/projects/details?id=" + projectId;
 
     }
 }

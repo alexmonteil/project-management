@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS message (
     message_id BIGINT NOT NULL DEFAULT nextval('message_seq') PRIMARY KEY,
     title VARCHAR(50) NOT NULL,
     content VARCHAR(255) NOT NULL,
-    created_at timestamptz NOT NULL DEFAULT NOW(),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     user_id BIGINT NOT NULL REFERENCES user_account (user_id),
     project_id BIGINT NOT NULL REFERENCES project (project_id)
 );
