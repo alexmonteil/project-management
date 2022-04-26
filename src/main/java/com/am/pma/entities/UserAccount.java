@@ -4,7 +4,9 @@ package com.am.pma.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,13 +38,17 @@ public class UserAccount {
 
     private boolean enabled = true;
 
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
+    private List<Message> messageList = new ArrayList<Message>();
+
     public UserAccount() {}
 
-    public UserAccount(String userName, String password,Set<Role> roles, boolean enabled) {
+    public UserAccount(String userName, String password, Set<Role> roles, boolean enabled, List<Message> messageList) {
         this.userName = userName;
         this.password = password;
         this.roles = roles;
         this.enabled = enabled;
+        this.messageList = messageList;
     }
 
     public long getUserId() {
