@@ -16,4 +16,5 @@ public class UserAccountService {
     }
     public UserAccount findByUserName(String username) { return userAccountRepository.findByUserName(username); }
     public UserAccount findByUserId(long userId) { return userAccountRepository.findByUserId(userId); }
+    public UserAccount getUserAccountByUserName(String username) { return userAccountRepository.getUserAccountByUserName(username); }
 }
