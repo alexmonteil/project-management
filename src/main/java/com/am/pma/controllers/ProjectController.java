@@ -92,7 +92,7 @@ public class ProjectController {
     public String displayProjectDetails(Model model, @RequestParam("id") long projectId) {
         Project targetProject = projectService.findByProjectId(projectId);
         model.addAttribute("project", targetProject);
-        return "project-details";
+        return "projects/project-details";
     }
 
 }

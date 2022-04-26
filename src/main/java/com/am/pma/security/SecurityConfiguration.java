@@ -18,20 +18,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
-    @Autowired
-    ProjectIOUserDetailsService projectIOUserDetailsService;
 
     @Autowired
     DaoAuthenticationProvider daoAuthenticationProvider;
 
 
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       daoAuthenticationProvider.setUserDetailsService(projectIOUserDetailsService);
-       daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
        auth.authenticationProvider(daoAuthenticationProvider);
     }
 
