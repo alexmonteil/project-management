@@ -49,6 +49,19 @@
       </table>
     </div>
   </div>
+  <div class="row">
+    <div class="col-8">
+      <div class="card" th:each="message : ${project.messageList}">
+        <div class="card-header" th:text="${message.title}"></div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p th:text="${message.content}"></p>
+            <footer class="blockquote-footer" th:text="${'By: ' + message.userAccount.userName}"><cite th:text="${'created at: ' + message.createdAt}"></cite></footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer th:replace="layouts :: footerContent"></footer>
