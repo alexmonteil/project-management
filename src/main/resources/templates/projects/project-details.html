@@ -51,6 +51,7 @@
   </div>
   <div class="row">
     <div class="col-8">
+      <a th:href="@{/messages/new(id=${project.projectId})}" class="btn btn-primary btn-sm mb-3">New Message</a>
       <div class="card" th:each="message : ${project.messageList}">
         <div class="card-header" th:text="${message.title}"></div>
         <div class="card-body">

@@ -3,11 +3,10 @@ package com.am.pma.entities;
 import com.am.pma.validators.OnUpdate;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+
 
 @Entity
 public class Message {
@@ -25,8 +24,6 @@ public class Message {
     @Size(min = 5, max = 255, groups = OnUpdate.class)
     private String content;
 
-    @NotNull
-    @Valid
     private Timestamp createdAt;
 
     @ManyToOne

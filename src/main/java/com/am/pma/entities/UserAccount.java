@@ -102,4 +102,12 @@ public class UserAccount {
     public void addRole(Role role) {
         this.roles.add(role);
     }
+
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
+    }
 }

@@ -115,4 +115,12 @@ public class Project {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
+    }
 }
