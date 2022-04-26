@@ -1,7 +1,9 @@
 package com.am.pma.controllers;
 
 import java.security.Principal;
+import java.text.DateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import com.am.pma.entities.Project;
 import com.am.pma.entities.Employee;
@@ -91,7 +93,11 @@ public class ProjectController {
     @GetMapping("/details")
     public String displayProjectDetails(Model model, @RequestParam("id") long projectId) {
         Project targetProject = projectService.findByProjectId(projectId);
+        String startDateString = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US).format(targetProject.getStartDate());
+        String endDateString = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US).format(targetProject.getEndDate());
         model.addAttribute("project", targetProject);
+        model.addAttribute("startDate", startDateString);
+        model.addAttribute("endDate", endDateString);
         return "projects/project-details";
     }
 
