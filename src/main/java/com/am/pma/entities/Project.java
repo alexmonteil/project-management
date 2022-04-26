@@ -48,7 +48,7 @@ public class Project {
     private List<Employee> employees;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Message> messageList = new ArrayList<Message>();
+    private List<Message> messageList = new ArrayList<>();
 
     public Project() {}
 

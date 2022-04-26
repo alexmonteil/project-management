@@ -39,7 +39,7 @@ public class UserAccount {
     private boolean enabled = true;
 
     @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
-    private List<Message> messageList = new ArrayList<Message>();
+    private List<Message> messageList = new ArrayList<>();
 
     public UserAccount() {}
 
