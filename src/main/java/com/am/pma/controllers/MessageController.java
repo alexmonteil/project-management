@@ -11,15 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 
@@ -56,5 +57,18 @@ public class MessageController {
         messageService.save(message);
         return "redirect:/projects/details?id=" + projectId;
 
+    }
+
+    @GetMapping("/delete")
+    public String deleteMessage(Model model, Principal principal, HttpServletRequest request, @RequestParam("id") long messageId, @RequestParam("projectId") long projectId) {
+
+        Message targetMessage = messageService.findByMessageId(messageId);
+        if (!targetMessage.getUserAccount().getUserName().equals(principal.getName())) {
+            model.addAttribute("errorMessage", "Unauthorized action");
+            return "redirect:/projects/details?id=" + projectId;
+        }
+
+        messageService.deleteMessage(targetMessage);
+        return "redirect:/projects/details?id=" + projectId;
     }
 }

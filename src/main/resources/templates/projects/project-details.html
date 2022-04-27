@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:include="layouts :: headContent">
   <title id="pageTitle">Project Details</title>
 </head>
@@ -52,13 +52,16 @@
   <div class="row">
     <div class="col-8">
       <a th:href="@{/messages/new(id=${project.projectId})}" class="btn btn-primary btn-sm mb-3">New Message</a>
+      <span th:if="${errorMessage}" th:text="${errorMessage}" class="text-red">Error: </span>
       <div class="card" th:each="message : ${project.messageList}">
         <div class="card-header" th:text="${message.title}"></div>
         <div class="card-body">
+          <p th:text="${message.content}"></p>
           <blockquote class="blockquote mb-0">
-            <p th:text="${message.content}"></p>
-            <footer class="blockquote-footer" th:text="${'By: ' + message.userAccount.userName + ' ' + #temporals.format(message.createdAt.toInstant(), 'MM-dd-yyyy HH:mm')}"></footer>
+            <footer class="blockquote-footer"
+                    th:text="${'By: ' + message.userAccount.userName + ' ' + #temporals.format(message.createdAt.toInstant(), 'MM-dd-yyyy HH:mm')}"></footer>
           </blockquote>
+          <a th:if="${#authentication.name}==${message.userAccount.userName}" th:href="@{/messages/delete(id=${message.messageId},projectId=${project.projectId})}" class="btn btn-danger btn-sm mb-3 mt-2">Delete</a>
         </div>
       </div>
     </div>

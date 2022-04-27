@@ -12,4 +12,7 @@ public class MessageService {
     IMessageRepository messageRepository;
 
     public Message save(Message message) { return messageRepository.save(message); }
+    public Message findByMessageId(long messageId) { return messageRepository.findByMessageId(messageId); }
+    public void deleteMessage(Message message) { messageRepository.delete(message); }
+
 }
