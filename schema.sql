@@ -65,10 +65,14 @@ CREATE TABLE IF NOT EXISTS message (
     message_id BIGINT NOT NULL DEFAULT nextval('message_seq') PRIMARY KEY,
     title VARCHAR(50) NOT NULL,
     content VARCHAR(255) NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    created_at TIMESTAMPTZ NOT NULL,
     user_id BIGINT NOT NULL REFERENCES user_account (user_id),
     project_id BIGINT NOT NULL REFERENCES project (project_id)
 );
 
 ALTER TABLE user_account ADD CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employee(employee_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE employee ADD CONSTRAINT fk_user_account FOREIGN KEY (user_id) REFERENCES user_account(user_id) DEFERRABLE INITIALLY DEFERRED;
+
+INSERT INTO role (name) VALUES ('ROLE_EMPLOYEE');
+INSERT INTO role (name) VALUES ('ROLE_MANAGER');
+INSERT INTO role (name) VALUES ('ROLE_ADMIN');

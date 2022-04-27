@@ -1,6 +1,7 @@
 package com.am.pma.entities;
 
 import com.am.pma.validators.OnUpdate;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -24,7 +25,6 @@ public class Message {
     @Size(min = 5, max = 255, groups = OnUpdate.class)
     private String content;
 
-    @Transient
     private Timestamp createdAt;
 
     @ManyToOne
@@ -37,9 +37,10 @@ public class Message {
 
     public Message() {}
 
-    public Message(String title, String content) {
+    public Message(String title, String content, Timestamp createdAt) {
         this.title = title;
         this.content = content;
+        this.createdAt = createdAt;
     }
 
     public long getMessageId() {

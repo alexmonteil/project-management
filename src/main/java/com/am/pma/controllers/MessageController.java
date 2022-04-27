@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 
 @Controller
@@ -50,6 +52,7 @@ public class MessageController {
         UserAccount targetUserAccount = userAccountService.findByUserName(principal.getName());
         message.setProject(targetProject);
         message.setUserAccount(targetUserAccount);
+        message.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         messageService.save(message);
         return "redirect:/projects/details?id=" + projectId;
 
