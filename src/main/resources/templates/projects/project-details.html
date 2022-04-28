@@ -4,71 +4,72 @@
   <title id="pageTitle">Project Details</title>
 </head>
 <body>
-<nav th:replace="layouts :: navbarContent"></nav>
-<div class="container mt-3">
-  <div class="row">
-    <div class="col-12">
-      <div class="text-center mx-auto">
-        <div class="card mx-auto" style="width: 18rem;">
-          <img th:src="@{/img/project.jpg}" class="card-img-top" alt="project photo">
-          <div class="card-body">
+  <nav th:replace="layouts :: navbarContent"></nav>
+  <main class="my-3">
+    <div class="container mt-2">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <div class="text-center">
+            <img th:src="@{/img/project.jpg}" class="h-50 w-auto mx-auto img-fluid" alt="project photo">
             <h3 th:text="${project.name}" class="mt-2"></h3>
+            <div class="mt-2">
+              <h5 class="card-title">Description:</h5>
+              <p th:text="${project.description}" class="card-text"></p>
+            </div>
+            <div class="mt-2">
+              <p th:text="${'Start Date: ' + startDate}"></p>
+              <p th:text="${'End Date: ' + endDate}"></p>
+            </div>
           </div>
-          <div class="card-body">
-            <h5 class="card-title">Description:</h5>
-            <p th:text="${project.description}" class="card-text"></p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li th:text="${'Start Date: ' + startDate}" class="list-group-item"></li>
-            <li th:text="${'End Date: ' + endDate}" class="list-group-item"></li>
-          </ul>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <h4>Assigned Employees</h4>
-      <table class="table table-border table-striped table-hover">
-        <thead class="table-dark">
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="employee : ${project.getEmployees()}">
-          <td th:text="${employee.firstName}"></td>
-          <td th:text="${employee.lastName}"></td>
-          <td><a th:href="@{${'mailto:' + employee.email}}" th:text="${employee.email}"></a></td>
-          <td th:text="${employee.phoneNumber}"></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <a th:href="@{/messages/new(id=${project.projectId})}" class="btn btn-primary btn-sm mb-3">New Message</a>
-      <span th:if="${errorMessage}" th:text="${errorMessage}" class="text-red">Error: </span>
-      <div class="card" th:each="message : ${project.messageList}">
-        <div class="card-header" th:text="${message.title}"></div>
-        <div class="card-body">
-          <p th:text="${message.content}"></p>
-          <blockquote class="blockquote mb-0">
-            <footer class="blockquote-footer"
-                    th:text="${'By: ' + message.userAccount.userName + ' ' + #temporals.format(message.createdAt.toInstant(), 'MM-dd-yyyy HH:mm')}"></footer>
-          </blockquote>
-          <a th:if="${#authentication.name}==${message.userAccount.userName}" th:href="@{/messages/delete(id=${message.messageId},projectId=${project.projectId})}" class="btn btn-danger btn-sm mb-3 mt-2">Delete</a>
+    <div class="container mt-2">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <h4>Assigned Employees</h4>
+          <table class="table table-border table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee : ${project.getEmployees()}">
+              <td th:text="${employee.firstName}"></td>
+              <td th:text="${employee.lastName}"></td>
+              <td><a th:href="@{${'mailto:' + employee.email}}" th:text="${employee.email}"></a></td>
+              <td th:text="${employee.phoneNumber}"></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<footer th:replace="layouts :: footerContent"></footer>
-<script th:replace="layouts :: bootstrapJS"></script>
+    <div class="container mt-2">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <a th:href="@{/messages/new(id=${project.projectId})}" class="btn btn-primary btn-sm mb-3">New Message</a>
+          <span th:if="${errorMessage}" th:text="${errorMessage}" class="text-red">Error: </span>
+          <div class="card mt-1" th:each="message : ${project.messageList}">
+            <div class="card-header" th:text="${message.title}"></div>
+            <div class="card-body">
+              <p th:text="${message.content}"></p>
+              <blockquote class="blockquote mb-0">
+                <footer class="blockquote-footer"
+                        th:text="${'By: ' + message.userAccount.userName + ' ' + #temporals.format(message.createdAt.toInstant(), 'MM-dd-yyyy HH:mm')}"></footer>
+              </blockquote>
+              <a th:if="${#authentication.name}==${message.userAccount.userName}" th:href="@{/messages/delete(id=${message.messageId},projectId=${project.projectId})}" class="btn btn-danger btn-sm mb-3 mt-2">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer th:replace="layouts :: footerContent"></footer>
+  <script th:replace="layouts :: bootstrapJS"></script>
 </body>
 </html>
