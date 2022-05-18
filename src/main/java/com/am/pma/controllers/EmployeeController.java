@@ -2,6 +2,7 @@ package com.am.pma.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import com.am.pma.services.EmployeeService;
 import com.am.pma.services.ImageService;
 import com.am.pma.services.RoleService;
 import com.am.pma.validators.OnUpdate;
+import org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
@@ -47,7 +49,7 @@ public class EmployeeController {
     public String displayCreateEmployeeForm(Model model) {
         Set<Role> roles = roleService.findAll();
         model.addAttribute("employee", new Employee());
-        model.addAttribute("rolesList", roles);
+        model.addAttribute("rolesSet", roles);
         return "employees/new-employee";
     }
 
@@ -61,7 +63,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public String createEmployee(Model model, @Valid Employee employee, BindingResult bindingResult, @RequestParam("role") String roleName, @RequestParam("imageFile") MultipartFile multipartFile) throws IOException {
+    public String createEmployee(Model model, @Valid Employee employee, BindingResult bindingResult, @RequestParam("selectedRoles") String[] selectedRoles, @RequestParam("imageFile") MultipartFile multipartFile) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "employees/new-employee";
@@ -72,10 +74,14 @@ public class EmployeeController {
             employee.setImageType(imageService.extractImageType(multipartFile));
         }
 
-        Role selectedRole = roleService.findByName(roleName);
+        Set<Role> selectedRoleSet = new HashSet<>();
+        for (String role : selectedRoles) {
+            selectedRoleSet.add(roleService.findByName(role));
+        }
+
         employee.getUserAccount().setPassword(bCryptPasswordEncoder.encode(employee.getUserAccount().getPassword()));
         employee.getUserAccount().setEmployee(employee);
-        employee.getUserAccount().addRole(selectedRole);
+        employee.getUserAccount().setRoles(selectedRoleSet);
         employeeService.save(employee);
         // redirect after saving to DB to avoid duplicate submissions
         return "redirect:/employees";
