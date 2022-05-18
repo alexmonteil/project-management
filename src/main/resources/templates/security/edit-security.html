@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="layouts :: headContent">
-    <title id="pageTitle">Update Account Security</title>
-</head>
-<body>
+    <head th:include="layouts :: headContent">
+        <title id="pageTitle">Update Account Security</title>
+    </head>
+    <body class="d-flex flex-column vh-100">
 
-<nav th:replace="layouts :: navbarContent"></nav>
-<div class="container mt-3">
-    <form th:action="@{/security/save}" method="POST" th:object="${passwordBox}">
-        <input type="hidden" th:field="${passwordBox.userId}" />
-        <div th:if="${#fields.hasErrors('global')}">
-            <p th:each="error : ${#fields.errors('global')}" th:text="${error}" class="text-red"></p>
+        <nav th:replace="layouts :: navbarContent"></nav>
+        <div class="container mt-3">
+            <form th:action="@{/security/save}" method="POST" th:object="${passwordBox}">
+                <input type="hidden" th:field="${passwordBox.userId}" />
+                <div th:if="${#fields.hasErrors('global')}">
+                    <p th:each="error : ${#fields.errors('global')}" th:text="${error}" class="text-red"></p>
+                </div>
+                <div class="input-group row mb-2 g-0">
+                    <label class="form-label" for="currentPassword">Current Password:</label>
+                    <input class="form-control" id="currentPassword" type="password" placeholder="Current Password" th:field="${passwordBox.currentPassword}" required minlength="4" maxlength="100" />
+                    <span class="text-red" th:if="${#fields.hasErrors('currentPassword')}" th:errors="${currentPassword}"></span>
+                </div>
+                <div class="input-group row mb-2 g-0">
+                    <label class="form-label" for="newPassword">New Password:</label>
+                    <input class="form-control" id="newPassword" type="password" placeholder="New Password" th:field="${passwordBox.newPassword}" required minlength="4" maxlength="100" />
+                    <span class="text-red" th:if="${#fields.hasErrors('newPassword')}" th:errors="${newPassword}"></span>
+                </div>
+                <input class="btn btn-info btn-small" type="submit" value="Update" onClick="return onClickConfirm('Are you sure you want to change the password ?');" />
+            </form>
         </div>
-        <div class="input-group row mb-2 g-0">
-            <label class="form-label" for="currentPassword">Current Password:</label>
-            <input class="form-control" id="currentPassword" type="password" placeholder="Current Password" th:field="${passwordBox.currentPassword}" required minlength="4" maxlength="100" />
-            <span class="text-red" th:if="${#fields.hasErrors('currentPassword')}" th:errors="${currentPassword}"></span>
-        </div>
-        <div class="input-group row mb-2 g-0">
-            <label class="form-label" for="newPassword">New Password:</label>
-            <input class="form-control" id="newPassword" type="password" placeholder="New Password" th:field="${passwordBox.newPassword}" required minlength="4" maxlength="100" />
-            <span class="text-red" th:if="${#fields.hasErrors('newPassword')}" th:errors="${newPassword}"></span>
-        </div>
-        <input class="btn btn-info btn-small" type="submit" value="Update" onClick="return onClickConfirm('Are you sure you want to change the password ?');" />
-    </form>
-</div>
 
-<footer th:replace="layouts :: footerContent"></footer>
-<script th:replace="layouts :: bootstrapJS"></script>
-</body>
-
+        <footer th:replace="layouts :: footerContent"></footer>
+        <script th:replace="layouts :: bootstrapJS"></script>
+    </body>
 </html>

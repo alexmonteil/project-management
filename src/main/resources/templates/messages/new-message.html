@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="layouts :: headContent">
-    <title id="pageTitle">New Message</title>
-</head>
-<body>
-<nav th:replace="layouts :: navbarContent"></nav>
-<div class="container mt-3">
-    <form th:action="@{/messages/create}" method="POST" th:object="${message}">
-        <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
-        <div class="input-group row mb-2 g-0">
-            <label  class="form-label" for="mtitle">Title:</label>
-            <input  class="form-control" id="mtitle" type="text" placeholder="Message title" th:field="${message.title}" required minlength="2" maxlength="50"/>
-            <span  class="text-red" th:if="${#fields.hasErrors('title')}" th:errors="${message.title}"></span>
+    <head th:include="layouts :: headContent">
+        <title id="pageTitle">New Message</title>
+    </head>
+    <body class="d-flex flex-column vh-100">
+        <nav th:replace="layouts :: navbarContent"></nav>
+        <div class="container mt-3">
+            <form th:action="@{/messages/create}" method="POST" th:object="${message}">
+                <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
+                <div class="input-group row mb-2 g-0">
+                    <label  class="form-label" for="mtitle">Title:</label>
+                    <input  class="form-control" id="mtitle" type="text" placeholder="Message title" th:field="${message.title}" required minlength="2" maxlength="50"/>
+                    <span  class="text-red" th:if="${#fields.hasErrors('title')}" th:errors="${message.title}"></span>
+                </div>
+                <div class="input-group row mb-2 g-0">
+                    <label class="form-label" for="mcontent">Content:</label>
+                    <textarea class="form-control" id="mcontent" placeholder="Message Content" th:field="${message.content}" required minlength="5" maxlength="255"></textarea>
+                    <span class="text-red" th:if="${#fields.hasErrors('content')}" th:errors="${message.content}"></span>
+                </div>
+                <input class="btn btn-primary btn-small" type="Submit" value="Post" />
+            </form>
         </div>
-        <div class="input-group row mb-2 g-0">
-            <label class="form-label" for="mcontent">Content:</label>
-            <textarea class="form-control" id="mcontent" placeholder="Message Content" th:field="${message.content}" required minlength="5" maxlength="255"></textarea>
-            <span class="text-red" th:if="${#fields.hasErrors('content')}" th:errors="${message.content}"></span>
-        </div>
-        <input class="btn btn-primary btn-small" type="Submit" value="Post" />
-    </form>
-</div>
-<footer th:replace="layouts :: footerContent"></footer>
-<script th:replace="layouts :: bootstrapJS"></script>
-</body>
+        <footer th:replace="layouts :: footerContent"></footer>
+        <script th:replace="layouts :: bootstrapJS"></script>
+    </body>
 </html>
