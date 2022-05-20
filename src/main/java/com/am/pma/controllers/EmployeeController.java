@@ -11,7 +11,6 @@ import com.am.pma.services.EmployeeService;
 import com.am.pma.services.ImageService;
 import com.am.pma.services.RoleService;
 import com.am.pma.validators.OnUpdate;
-import org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
@@ -57,8 +56,10 @@ public class EmployeeController {
     public String displayUpdateEmployeeForm(Model model, @RequestParam("id") long employeeId) {
         Employee targetEmployee = employeeService.findByEmployeeId(employeeId);
         String imgUrl = imageService.convertByteArrayToFile(targetEmployee.getImageData(), targetEmployee.getImageType());
+        Set<Role> roles = roleService.findAll();
         model.addAttribute("employee", targetEmployee);
         model.addAttribute("imgUrl", imgUrl);
+        model.addAttribute("rolesSet", roles);
         return "employees/update-employee";
     }
 
@@ -88,10 +89,15 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile multipartFile) throws IOException {
+    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile multipartFile, @RequestParam("selectedRoles") String[] selectedRoles) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "employees/update-employee";
+        }
+
+        Set<Role> selectedRoleSet = new HashSet<>();
+        for (String role : selectedRoles) {
+            selectedRoleSet.add(roleService.findByName(role));
         }
 
         Employee beforeUpdateEmployee = employeeService.findByEmployeeId(employee.getEmployeeId());
@@ -100,6 +106,7 @@ public class EmployeeController {
         beforeUpdateEmployee.setEmail(employee.getEmail());
         beforeUpdateEmployee.setPhoneNumber(employee.getPhoneNumber());
         beforeUpdateEmployee.setCareerDescription(employee.getCareerDescription());
+        beforeUpdateEmployee.getUserAccount().setRoles(selectedRoleSet);
         if (!multipartFile.isEmpty() && multipartFile.getOriginalFilename() != null) {
             beforeUpdateEmployee.setImageData(multipartFile.getBytes());
             beforeUpdateEmployee.setImageType(imageService.extractImageType(multipartFile));
