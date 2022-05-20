@@ -25,13 +25,11 @@
                 <textarea id="pdescription" type="text" placeholder="Enter Project Description" th:field="${project.description}" required></textarea>
             </div>
             <div class="input-group row mb-2 g-0">
-                <label class="form-label" for="employees">Employees</label>
-                <select class="form-select" id="employees" th:field="${project.employees}" required multiple>
-                    <option th:each="employee : ${employeesList}"
-                            th:value="${employee.employeeId}"
-                            th:text="${employee.firstName}">
-                    </option>
-                </select>
+                <label class="form-label" for="employees">Employees:</label>
+                <div th:each="employee : ${employeesList}">
+                    <input type="checkbox" th:text="${employee.firstName}" th:value="${employee.employeeId}" class="m-2" id="employees" th:field="${project.employees}" />
+                </div>
+                <span  class="text-red" th:if="${#fields.hasErrors('employees')}" th:errors="${project.employees}"></span>
             </div>
             <div class="input-group row mb-2 g-0">
                 <label for="dp3">Project Start Date:</label>

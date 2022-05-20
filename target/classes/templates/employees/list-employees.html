@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
   <head th:include="layouts :: headContent">
     <title id="pageTitle">Employees Directory</title>
   </head>
@@ -10,7 +10,7 @@
       <div class="col-12">
         <h4>Employees Directory</h4>
         <hr>
-        <a th:href="@{/employees/new}" class="btn btn-primary btn-sm mb-3">New Employee</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/employees/new}" class="btn btn-primary btn-sm mb-3">New Employee</a>
         <table class="table table-bordered table-striped table-hover">
           <thead class="table-dark">
           <tr>
@@ -19,7 +19,7 @@
             <th>Email</th>
             <th>Phone Number</th>
             <th>Profile</th>
-            <th>Action</th>
+            <th sec:authorize="hasRole('ADMIN')">Action</th>
           </tr>
           </thead>
           <tbody>
@@ -31,7 +31,7 @@
             <td>
               <a th:href="@{/employees/profile(id=${employee.employeeId})}">See Profile</a>
             </td>
-            <td>
+            <td sec:authorize="hasRole('ADMIN')">
               <a class="btn btn-info btn-sm" th:href="@{/employees/update(id=${employee.employeeId})}">Update</a>
               <a class="btn btn-danger btn-sm" th:href="@{/employees/delete(id=${employee.employeeId})}" onClick="return onClickConfirm('Are you sure you want to delete this employee ?');">Delete</a>
             </td>

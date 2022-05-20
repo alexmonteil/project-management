@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layouts :: headContent">
+  <title id="pageTitle">Update Profile</title>
+</head>
+<body class="d-flex flex-column vh-100">
+
+<nav th:replace="layouts :: navbarContent"></nav>
+<div class="container mt-3">
+  <form th:action="@{/employees/save}" method="POST" th:object="${employee}" enctype="multipart/form-data">
+    <input type="hidden" th:field="${employee.employeeId}" />
+    <div class="input-group row mb-2 g-0">
+      <label class="form-label" for="fname">First Name:</label>
+      <input class="form-control" id="fname" type="text" placeholder="First Name" th:field="${employee.firstName}" required minlength="2" maxlength="50" />
+      <span  class="text-red" th:if="${#fields.hasErrors('firstName')}" th:errors="${employee.firstName}"></span>
+    </div>
+    <div class="input-group row mb-2 g-0">
+      <label class="form-label" for="lname">Last Name:</label>
+      <input class="form-control" id="lname" type="text" placeholder="Last Name" th:field="${employee.lastName}" required minlength="2" maxlength="50" />
+      <span class="text-red" th:if="${#fields.hasErrors('lastName')}" th:errors="${employee.lastName}"></span>
+    </div>
+    <div class="input-group row mb-2 g-0">
+      <label class="form-label" for="email">Email:</label>
+      <input class="form-control" id="email" type="email" placeholder="Email" th:field="${employee.email}" required minlength="10" maxlength="50" />
+      <span class="text-red" th:if="${#fields.hasErrors('email')}" th:errors="${employee.email}"></span>
+    </div>
+    <div class="input-group row mb-2 g-0">
+      <label class="form-label" for="phone">Phone number:</label>
+      <input class="form-control" id="phone" type="tel" placeholder="Phone" th:field="${employee.phoneNumber}" required  minlength="10" maxlength="13"/>
+      <span class="text-red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="${employee.phoneNumber}"></span>
+    </div>
+    <div class="input-group row mb-2 g-0">
+      <label class="form-label" for="cdescription">Career Description:</label>
+      <textarea class="form-control" id="cdescription" placeholder="Career Description" th:field="${employee.careerDescription}" required minlength="20" maxlength="255"></textarea>
+      <span class="text-red" th:if="${#fields.hasErrors('careerDescription')}" th:errors="${employee.careerDescription}"></span>
+    </div>
+    <div class="input-group row mb-2 g-0">
+      <label class="form-label" for="imageFile">Picture:</label>
+      <input class="form-control" id="imageFile" name="imageFile" type="file" placeholder="Picture" accept="image/png, image/jpeg" />
+    </div>
+    <input class="btn btn-info btn-small" type="submit" value="Update Employee" />
+  </form>
+</div>
+
+<footer th:replace="layouts :: footerContent"></footer>
+<script th:replace="layouts :: bootstrapJS"></script>
+</body>
+
+</html>

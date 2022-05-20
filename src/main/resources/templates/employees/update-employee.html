@@ -27,7 +27,7 @@
         <div th:if="${!rolesSet.isEmpty()}" class="input-group row mb-2 g-0">
             <label class="form-label" for="selectedRoles">Choose Roles:</label>
             <div th:each="role: ${rolesSet}">
-                <input type="checkbox" th:text="${role.name}" th:value="${role.name}" class="m-2" id="selectedRoles" name="selectedRoles" required />
+                <input type="checkbox" th:text="${role.name}" th:value="${role.name}" class="m-2" id="selectedRoles" name="selectedRoles" />
             </div>
         </div>
         <div class="input-group row mb-2 g-0">

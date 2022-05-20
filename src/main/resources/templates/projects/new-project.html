@@ -27,13 +27,10 @@
                     <span  class="text-red" th:if="${#fields.hasErrors('description')}" th:errors="${project.description}"></span>
                 </div>
                 <div class="input-group row mb-2 g-0">
-                    <label class="form-label" for="employees">Employees</label>
-                    <select class="form-select" id="employees" th:field="${project.employees}" required multiple>
-                        <option th:each="employee : ${employeesList}"
-                                th:value="${employee.employeeId}"
-                                th:text="${employee.firstName}">
-                        </option>
-                    </select>
+                    <label class="form-label" for="employees">Employees:</label>
+                    <div th:each="employee : ${employeesList}">
+                        <input type="checkbox" th:text="${employee.firstName}" th:value="${employee.employeeId}" class="m-2" id="employees" th:field="${project.employees}" />
+                    </div>
                     <span  class="text-red" th:if="${#fields.hasErrors('employees')}" th:errors="${project.employees}"></span>
                 </div>
                 <div class="input-group row mb-2 g-0">

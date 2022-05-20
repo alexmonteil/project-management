@@ -89,24 +89,28 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile multipartFile, @RequestParam("selectedRoles") String[] selectedRoles) throws IOException {
+    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile multipartFile, @RequestParam(name = "selectedRoles", required = false) String[] selectedRoles) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "employees/update-employee";
         }
 
-        Set<Role> selectedRoleSet = new HashSet<>();
-        for (String role : selectedRoles) {
-            selectedRoleSet.add(roleService.findByName(role));
+        Employee beforeUpdateEmployee = employeeService.findByEmployeeId(employee.getEmployeeId());
+
+        if (selectedRoles != null) {
+            Set<Role> selectedRoleSet = new HashSet<>();
+            for (String role : selectedRoles) {
+                selectedRoleSet.add(roleService.findByName(role));
+            }
+
+            beforeUpdateEmployee.getUserAccount().setRoles(selectedRoleSet);
         }
 
-        Employee beforeUpdateEmployee = employeeService.findByEmployeeId(employee.getEmployeeId());
         beforeUpdateEmployee.setFirstName(employee.getFirstName());
         beforeUpdateEmployee.setLastName(employee.getLastName());
         beforeUpdateEmployee.setEmail(employee.getEmail());
         beforeUpdateEmployee.setPhoneNumber(employee.getPhoneNumber());
         beforeUpdateEmployee.setCareerDescription(employee.getCareerDescription());
-        beforeUpdateEmployee.getUserAccount().setRoles(selectedRoleSet);
         if (!multipartFile.isEmpty() && multipartFile.getOriginalFilename() != null) {
             beforeUpdateEmployee.setImageData(multipartFile.getBytes());
             beforeUpdateEmployee.setImageType(imageService.extractImageType(multipartFile));
@@ -137,6 +141,6 @@ public class EmployeeController {
         String imgUrl = imageService.convertByteArrayToFile(targetEmployee.getImageData(), targetEmployee.getImageType());
         model.addAttribute("employee", targetEmployee);
         model.addAttribute("imgUrl", imgUrl);
-        return "employees/update-employee";
+        return "employees/update-profile";
     }
 }
