@@ -14,5 +14,6 @@ body {
 }
 
 .home-background {
-    background-image: '/img/projectio-bg.jpg'
+    background-image: url("/img/projectio-bg.jpg");
+    background-size: cover;
 }
