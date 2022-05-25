@@ -12,3 +12,7 @@ body {
 .text-red {
     color: red;
 }
+
+.home-background {
+    background-image: '/img/projectio-bg.jpg'
+}

@@ -19,12 +19,18 @@ public class HomeController {
     @Autowired
     EmployeeService employeeService;
 
+
     @GetMapping("/")
-    public String displayHome(Model model) {
+    public String displayHome() {
+        return "main/home";
+    }
+
+    @GetMapping("/dashboard")
+    public String displayDashboard(Model model) {
         List<Project> projects = projectService.getAll();
         List<IEmployeeProject> employeesProjectCount = employeeService.getEmployeeProjects();
         model.addAttribute("projectsList", projects);
         model.addAttribute("employeesListProjectCount", employeesProjectCount);
-        return "main/home";
+        return "main/dashboard";
     }
 }
