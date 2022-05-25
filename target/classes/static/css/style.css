@@ -12,3 +12,8 @@ body {
 .text-red {
     color: red;
 }
+
+.home-background {
+    background-image: url("/img/projectio-bg.jpg");
+    background-size: cover;
+}

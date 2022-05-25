@@ -5,7 +5,7 @@
     </head>
     <body class="d-flex flex-column vh-100">
         <nav th:replace="layouts :: navbarContent"></nav>
-        <div class="container mt-3">
+        <div class="container my-3">
             <form th:action="@{/projects/create}" method="POST" th:object="${project}">
                 <div class="input-group row mb-2 g-0">
                     <label  class="form-label" for="pname">Project Name:</label>
