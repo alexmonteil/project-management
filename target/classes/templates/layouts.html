@@ -23,9 +23,10 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
-                    <a class="nav-link" th:href="@{/employees}">Employees</a>
-                    <a class="nav-link" th:href="@{/projects}">Projects</a>
-                    <a class="nav-link" th:href="@{/projects/timelines}">Projects Timelines</a>
+                    <a sec:authorize="hasAnyRole('ADMIN', 'MANAGER')" th:href="@{/dashboard}" class="nav-link">Dashboard</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/employees}">Employees</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/projects}">Projects</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/projects/timelines}">Projects Timelines</a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/projects/my-projects}" class="nav-link">My Projects</a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/employees/edit-my-profile}" class="nav-link">Edit My Profile</a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/security/edit-security}" class="nav-link">Account Security</a>
