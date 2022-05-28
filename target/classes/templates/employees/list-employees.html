@@ -29,7 +29,7 @@
             <td><a th:href="@{${'mailto:' + employee.email}}" th:text="${employee.email}"></a></td>
             <td th:text="${employee.phoneNumber}"></td>
             <td>
-              <a th:href="@{/employees/profile(id=${employee.employeeId})}">See Profile</a>
+              <a th:href="@{/employees/profile(id=${employee.employeeId})}">View Profile</a>
             </td>
             <td sec:authorize="hasRole('ADMIN')">
               <a class="btn btn-info btn-sm" th:href="@{/employees/update(id=${employee.employeeId})}">Update</a>
