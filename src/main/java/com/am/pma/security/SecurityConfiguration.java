@@ -15,9 +15,6 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    DataSource dataSource;
-
-    @Autowired
     DaoAuthenticationProvider daoAuthenticationProvider;
 
 
