@@ -13,7 +13,7 @@
                         <h3 class="card-title mb-4">Welcome to work !</h3>
                         <h6 class="card-subtitle mb-4 text-muted">Grabbed your coffee yet ?!</h6>
                         <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-primary">Login</a>
-                        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary">Logout</a>
+                        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-danger">Logout</a>
                     </div>
                 </div>
             </div>

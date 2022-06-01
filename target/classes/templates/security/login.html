@@ -20,6 +20,7 @@
                                 <label class="form-label" for="username">Username</label>
                                 <input type="text" id="username" name="username" class="form-control form-control-lg"
                                        placeholder="Enter username" required />
+                                <span class="text-red" th:if="${param.loginError}" th:text="'Wrong username or password!'"></span>
                             </div>
 
                             <!-- Password input -->
