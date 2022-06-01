@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/messages/delete").authenticated()
                 .antMatchers("/", "/**").permitAll()
                 .and()
-                .formLogin();
+                .formLogin().loginPage("/login");
     }
 
 }

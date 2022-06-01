@@ -49,7 +49,7 @@
       <div class="col-10">
         <a sec:authorize="isAuthenticated()" th:href="@{/messages/new(id=${project.projectId})}" class="btn btn-primary btn-sm mb-3">New Message</a>
         <span th:if="${errorMessage}" th:text="${errorMessage}" class="text-red">Error: </span>
-        <div  th:each="message : ${project.messageList}" class="card mt-1">
+        <div  th:each="message : ${project.messageList}" class="card mt-3">
           <div class="card-header" th:text="${message.title}"></div>
           <div class="card-body">
             <p th:text="${message.content}"></p>
