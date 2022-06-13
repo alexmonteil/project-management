@@ -29,7 +29,7 @@
                     <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/projects/timelines}">Projects Timelines</a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/projects/my-projects}" class="nav-link">My Projects</a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/employees/edit-my-profile}" class="nav-link">Edit My Profile</a>
-                    <a sec:authorize="isAuthenticated()" th:href="@{/security/edit-security}" class="nav-link">Account Security</a>
+                    <a sec:authorize="isAuthenticated()" th:if="${#authentication.name != 'testadmin'}" th:href="@{/security/edit-security}" class="nav-link">Account Security</a>
                     <a sec:authorize="isAnonymous()" th:href="@{/login}" class="nav-link">Login</a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="nav-link">Logout</a>
                 </div>

@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
 
 
 @Configuration
@@ -40,11 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/projects/details").authenticated()
                 .antMatchers("/projects/my-projects").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers("/employees").authenticated()
-                .antMatchers("/employees/new").hasRole("ADMIN")
-                .antMatchers("/employees/create").hasRole("ADMIN")
-                .antMatchers("/employees/update").authenticated()
-                .antMatchers("/employees/save").authenticated()
-                .antMatchers("/employees/delete").hasRole("ADMIN")
+                //.antMatchers("/employees/new").hasRole("ADMIN")
+                //.antMatchers("/employees/create").hasRole("ADMIN")
+                //.antMatchers("/employees/update").authenticated()
+                //.antMatchers("/employees/save").authenticated()
+                //.antMatchers("/employees/delete").hasRole("ADMIN")
                 .antMatchers("/employees/edit-my-profile").authenticated()
                 .antMatchers("/employees/profile").authenticated()
                 .antMatchers("/messages/new").authenticated()
