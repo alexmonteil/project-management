@@ -21,7 +21,7 @@ public class HttpRequestTest {
 
     @Test
     public void homePageReturns200_thenSucess() throws Exception {
-        this.mockMvc.perform(get("/chartdata")).andExpect(status().isOk());
+        this.mockMvc.perform(get("/")).andExpect(status().isOk());
     }
 
 }

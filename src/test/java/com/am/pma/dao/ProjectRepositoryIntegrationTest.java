@@ -23,6 +23,6 @@ public class ProjectRepositoryIntegrationTest {
     public void ifNewProjectSaved_thenSuccess() {
         Project newProject = new Project("Test Project 1", "COMPLETE", "Generic description", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()));
         projectRepository.save(newProject);
-        assertEquals(5, projectRepository.findAll().size());
+        assertEquals(1, projectRepository.findAll().size());
     }
 }
