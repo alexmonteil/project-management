@@ -6,7 +6,7 @@ const fetchData = async (url) => {
 
 window.addEventListener("DOMContentLoaded", async event => {
 
-    const timelineDataJS = await fetchData("http://localhost:8080/chartdata/projects-timelines");
+    const timelineDataJS = await fetchData("https://projectio-springboot.herokuapp.com/chartdata/projects-timelines");
     const rows = [];
     timelineDataJS.forEach(obj => {
         rows.push([obj['projectName'], new Date(obj['startDate']), new Date(obj['endDate'])]);
