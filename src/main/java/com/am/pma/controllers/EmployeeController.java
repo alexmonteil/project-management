@@ -89,7 +89,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile multipartFile, @RequestParam(name = "selectedRoles", required = false) String[] selectedRoles) throws IOException {
+    public String updateEmployee(Model model, @Validated(OnUpdate.class) Employee employee, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile multipartFile) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "employees/update-employee";
@@ -97,13 +97,8 @@ public class EmployeeController {
 
         Employee beforeUpdateEmployee = employeeService.findByEmployeeId(employee.getEmployeeId());
 
-        if (selectedRoles != null) {
-            Set<Role> selectedRoleSet = new HashSet<>();
-            for (String role : selectedRoles) {
-                selectedRoleSet.add(roleService.findByName(role));
-            }
-
-            beforeUpdateEmployee.getUserAccount().setRoles(selectedRoleSet);
+        if (employee.getUserAccount().getRoles() != null) {
+            beforeUpdateEmployee.getUserAccount().setRoles(employee.getUserAccount().getRoles());
         }
 
         beforeUpdateEmployee.setFirstName(employee.getFirstName());
