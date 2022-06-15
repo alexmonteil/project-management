@@ -5,14 +5,17 @@ import java.text.DateFormat;
 import java.util.List;
 import java.util.Locale;
 
+
 import com.am.pma.entities.Project;
 import com.am.pma.entities.Employee;
 import com.am.pma.services.EmployeeService;
 import com.am.pma.services.ProjectService;
+import com.am.pma.validators.OnUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 
 @Controller
+@Validated
 @RequestMapping("/projects")
 public class ProjectController {
 
@@ -64,7 +68,7 @@ public class ProjectController {
     }
 
     @PostMapping("/save")
-    public String updateProject(@Valid Project project, Model model) {
+    public String updateProject(@Validated(OnUpdate.class) Project project, Model model) {
         projectService.save(project);
         return "redirect:/projects";
     }

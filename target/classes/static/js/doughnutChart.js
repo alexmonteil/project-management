@@ -5,7 +5,7 @@ const fetchData = async (url) => {
 };
 
 window.addEventListener("DOMContentLoaded", async event => {
-    let chartDataJS = await fetchData("http://localhost:8080/chartdata/projects-status-counts");
+    let chartDataJS = await fetchData("http://projectio-springboot.herokuapp.com/chartdata/projects-status-counts");
 
     const labels = [];
 

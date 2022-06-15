@@ -35,12 +35,12 @@
                 </div>
                 <div class="input-group row mb-2 g-0">
                     <label for="dp3">Project Start Date:</label>
-                    <input id="dp3" type="text" class="mb-4 col-2 col-xs-4" value="Start Date" th:field="${project.startDate}" required>
+                    <input id="dp3" type="date" class="mb-4 col-2 col-xs-4" th:field="${project.startDate}" required>
                     <span  class="text-red" th:if="${#fields.hasErrors('startDate')}" th:errors="${project.startDate}"></span>
                 </div>
                 <div class="input-group row mb-2 g-0">
                     <label for="dp4">Project End Date:</label>
-                    <input id="dp4" type="text" class="mb-4 col-2 col-xs-4" value="End Date" th:field="${project.endDate}" required>
+                    <input id="dp4" type="date" class="mb-4 col-2 col-xs-4" th:field="${project.endDate}" required>
                     <span  class="text-red" th:if="${#fields.hasErrors('endDate')}" th:errors="${project.endDate}"></span>
                 </div>
                 <input class="btn btn-primary btn-small" type="Submit" value="Create Project" />
@@ -51,9 +51,5 @@
         <script th:replace="layouts :: footerJS"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            $('#dp3').datepicker();
-            $('#dp4').datepicker();
-        </script>
     </body>
 </html>

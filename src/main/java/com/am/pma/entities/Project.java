@@ -1,11 +1,13 @@
 package com.am.pma.entities;
 
 
+import com.am.pma.validators.OnUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,26 +21,25 @@ public class Project {
     @SequenceGenerator(name = "project_seq", sequenceName = "project_seq", allocationSize = 1, initialValue = 1)
     private long projectId;
 
-    @NotBlank(message = "* Must provide a project name")
-    @Size(min = 2, max = 100)
+    @NotBlank(message = "* Must provide a project name", groups = OnUpdate.class)
+    @Size(min = 2, max = 100, groups = OnUpdate.class)
     private String name;
 
-    @NotBlank(message = "* Must provide a project stage")
-    @Size(min = 2, max = 20)
+    @NotBlank(message = "* Must provide a project stage", groups = OnUpdate.class)
+    @Size(min = 2, max = 20, groups = OnUpdate.class)
     private String stage;
 
-    @NotBlank(message = "* Must provide a project description")
-    @Size(min = 2, max = 255)
+    @NotBlank(message = "* Must provide a project description", groups = OnUpdate.class)
+    @Size(min = 2, max = 255, groups = OnUpdate.class)
     private String description;
 
     @NotNull
-    @Valid
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
 
     @NotNull
-    @Valid
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
-
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
