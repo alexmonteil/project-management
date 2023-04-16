@@ -29,8 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.requiresChannel(channel -> channel.anyRequest().requiresSecure())
-                .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null);
+        http.requiresChannel().requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure();
         http.authorizeRequests()
                 .antMatchers("/dashboard").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers("/projects").authenticated()
